@@ -85,13 +85,12 @@ for ite in range(iteration):
             constellation.updata_shaping_points(shaping_points_temp[0][0].copy())
             classfier_svm = copy.deepcopy(shaping_points_temp[0][2])
 
-            """
-            # train svm
+            T_train = np.array(random.choices(symbol_name, k=N_train))
             X_train = np.array([constellation.get_shaping_points()[key] for key in T_train])
-            X_train = add_noise(X_train, CNR=CNR_train)
-            classfier_svm.fit(iteration_svm, X_train, T_train)
-            """
+            X_train = add_noise1(X_train, CNR=CNR_train)  # add gaussian noise
+            X_train = add_noise2(X_train, linewidth, sam_frequency)  # add non gaussian noise
 
+            
         else:
             shaping_points_temp[0][0] = constellation.get_shaping_points().copy()
             shaping_points_temp[0][1] = temp_ser
